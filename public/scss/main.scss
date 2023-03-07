@@ -13,8 +13,9 @@ img {
 
 
 .card {
-    height: 20rem;
+    min-height: 20rem;
     margin: 0.5rem;
+    height: fit-content;
     .progress {
         margin-bottom: 1rem;
         width: 100%;

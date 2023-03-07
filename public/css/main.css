@@ -9,8 +9,9 @@ img {
   object-fit: contain; }
 
 .card {
-  height: 20rem;
-  margin: 0.5rem; }
+  min-height: 20rem;
+  margin: 0.5rem;
+  height: fit-content; }
   .card .progress {
     margin-bottom: 1rem;
     width: 100%; }
