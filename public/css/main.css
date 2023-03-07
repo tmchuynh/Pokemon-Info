@@ -1,0 +1,32 @@
+main {
+  padding: 1.5rem; }
+
+p {
+  padding: 0;
+  margin: 0; }
+
+img {
+  object-fit: contain; }
+
+.card {
+  height: 20rem;
+  margin: 0.5rem; }
+  .card .progress {
+    margin-bottom: 1rem;
+    width: 100%; }
+
+.top {
+  height: 26rem; }
+
+.type-pills,
+.move-pills {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0;
+  padding: 0; }
+  .type-pills .badge,
+  .move-pills .badge {
+    margin: 2px; }
+
+.evolution {
+  margin: 10px; }
