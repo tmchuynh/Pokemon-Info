@@ -5,11 +5,17 @@ var type_pills = document.querySelector(".type-pills");
 var move_pills = document.querySelector(".move-pills");
 var chained_evolution = document.querySelector(".chained-evolution");
 
-$.getJSON("https://pokeapi.co/api/v2/pokemon?limit=2", function(data) {
+var id_ = 1;
+var results_;
+
+
+$.getJSON("https://pokeapi.co/api/v2/pokemon?limit=3", function (data) {
     console.log(data);
     for (var i = 0; i < data.results.length; i++) {
-        $.getJSON(data.results[i].url, function(results) {
+        $.getJSON(data.results[i].url, function (results) {
+            results_ = results;
             console.log(results);
+            id_ = results.id;
             removeChildren(type_pills);
             removeChildren(move_pills);
             removeChildren(progress_container);
@@ -19,12 +25,26 @@ $.getJSON("https://pokeapi.co/api/v2/pokemon?limit=2", function(data) {
             for (var j = 0; j < results.moves.length; j++) {
                 createBadgeElement(move_pills, results.moves[j].move.name);
             }
-            for (var j = 0; j <results.stats.length; j++) {
+            for (var j = 0; j < results.stats.length; j++) {
                 createProgressBar(results.stats[j].base_stat, results.stats[j].stat.name);
             }
+            removeChildren(chained_evolution);
+            $.getJSON("https://pokeapi.co/api/v2/evolution-chain/" + results.id, function (evolution_chain) {
+                console.log(evolution_chain);
+                // addEvolvedPokemon(evolution_chain.chain.species.name, results.sprites.front_default);
+                // for (var j = 0; j < evolution_chain.chain.evolves_to.length; j++) {
+                    addEvolvedPokemon(evolution_chain.chain.evolves_to.species.name, results.sprites.front_default);
+                // }
+                // addEvolvedPokemon(evolution_chain.chain.evolves_to[0].species.name, results.sprites.front_default);
+            })
+
         })
     }
 });
+$.getJSON("https://pokeapi.co/api/v2/pokemon?limit=3", function (data) {
+
+});
+
 
 
 function removeChildren(parent) {
@@ -73,4 +93,5 @@ function addEvolvedPokemon(name, url) {
     var img = document.createElement("img");
     img.src = url;
     evolved.appendChild(img);
+    chained_evolution.appendChild(evolved);
 }
