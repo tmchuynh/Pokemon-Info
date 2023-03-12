@@ -1,5 +1,11 @@
+:root {
+  --grey: #4C5B5C;
+  --black: #18191b; }
+
 main {
-  padding: 1.5rem; }
+  padding: 1.5rem;
+  background-color: var(--grey);
+  color: white; }
 
 p {
   padding: 0;
@@ -8,10 +14,14 @@ p {
 img {
   object-fit: contain; }
 
+.bi {
+  color: var(--grey); }
+
 .card {
   min-height: 25rem;
   margin: 0.5rem;
-  height: max-content; }
+  height: max-content;
+  color: var(--black); }
   .card .progress {
     margin-bottom: .5rem;
     width: 100%; }
