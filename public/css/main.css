@@ -9,25 +9,31 @@ img {
   object-fit: contain; }
 
 .card {
-  min-height: 20rem;
+  min-height: 25rem;
   margin: 0.5rem;
-  height: fit-content; }
+  height: max-content; }
   .card .progress {
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
     width: 100%; }
 
 .top {
   height: 26rem; }
 
 .type-pills,
+.ability-pills,
 .move-pills {
   display: flex;
   flex-wrap: wrap;
   margin-top: 0;
   padding: 0; }
   .type-pills .badge,
+  .ability-pills .badge,
   .move-pills .badge {
     margin: 2px; }
 
-.evolution {
-  margin: 10px; }
+.sprites {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap; }
+  .sprites .sprite-image {
+    width: 35%; }

@@ -13,11 +13,11 @@ img {
 
 
 .card {
-    min-height: 20rem;
+    min-height: 25rem;
     margin: 0.5rem;
-    height: fit-content;
+    height: max-content;
     .progress {
-        margin-bottom: 1rem;
+        margin-bottom: .5rem;
         width: 100%;
     }
 }
@@ -28,6 +28,7 @@ img {
 
 
 .type-pills,
+.ability-pills,
 .move-pills {
     display: flex;
     flex-wrap: wrap;
@@ -38,6 +39,11 @@ img {
     }
 }
 
-.evolution {
-    margin: 10px;
+.sprites {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    .sprite-image {
+        width: 35%;
+    }
 }
