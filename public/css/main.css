@@ -31,6 +31,10 @@ img {
   .move-pills .badge {
     margin: 2px; }
 
+.main-image {
+  max-width: 19rem;
+  max-height: 19rem; }
+
 .sprites {
   width: 100%;
   display: flex;
