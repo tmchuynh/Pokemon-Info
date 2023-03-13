@@ -38,6 +38,8 @@
 
 Pokemon Info is a simple collection of information about each individual character in the game. It lists the characters in order of their position in the pokedex and lists their type, abilities, moves, stats, as well as displays their sprites.
 
+<img src="public/images/Pokemon-Info.png">
+
 ## :white_check_mark: Requirements ##
 
 Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
