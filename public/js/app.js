@@ -24,7 +24,6 @@ search_bar.addEventListener("keyup", function (event) {
         search_bar.value = "";
         getData();
     }
-    console.log(search_bar.value);
 });
 
 /* Adding an event listener to each element in the left_arrow array. */
