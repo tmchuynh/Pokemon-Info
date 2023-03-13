@@ -26,11 +26,11 @@
 
 <!-- Status -->
 
-<!-- <h4 align="center"> 
+<h4 align="center"> 
 	🚧  Pokemon Info 🚀 Under construction...  🚧
 </h4> 
 
-<hr> -->
+<hr>
 
 <br>
 
