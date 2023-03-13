@@ -17,6 +17,11 @@ img {
 .bi {
   color: var(--grey); }
 
+#order {
+  position: absolute;
+  top: 5.8rem;
+  left: 48.5%; }
+
 .card {
   min-height: 25rem;
   margin: 0.5rem;
