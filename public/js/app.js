@@ -21,6 +21,7 @@ var search_bar = document.querySelector("#search_bar");
 search_bar.addEventListener("keyup", function (event) {
     if (event.keyCode == 13) {
         id_ = search_bar.value;
+        search_bar.value = "";
         getData();
     }
     console.log(search_bar.value);
