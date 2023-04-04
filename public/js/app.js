@@ -1,100 +1,78 @@
+const mainImage = document.querySelector(".main-image");
+const progressContainer = document.querySelector(".progress-container");
+const typePills = document.querySelector(".type-pills");
+const movePills = document.querySelector(".move-pills");
+const abilityPills = document.querySelector(".ability-pills");
+const pokeName = document.querySelector("#name");
+const order = document.querySelector("#order");
+const sprites = document.querySelector(".sprites");
 
-var main_image = document.querySelector(".main-image");
-var progress_container = document.querySelector(".progress-container");
-var type_pills = document.querySelector(".type-pills");
-var move_pills = document.querySelector(".move-pills");
-var ability_pills = document.querySelector(".ability-pills");
-var poke_name = document.querySelector("#name");
-var order = document.querySelector("#order");
-var sprites = document.querySelector(".sprites");
+let id = 1;
+let results;
 
-var id_ = 1;
-var results_;
+const leftArrow = document.querySelectorAll(".bi-arrow-left-square-fill");
+const rightArrow = document.querySelectorAll(".bi-arrow-right-square-fill");
 
-var left_arrow = document.querySelectorAll(".bi-arrow-left-square-fill");
-var right_arrow = document.querySelectorAll(".bi-arrow-right-square-fill");
-
-/* This is adding an event listener to the search bar, so that when the user presses the enter key, the
-value of the search bar will be set to the id_ variable, and then the getData() function will be
-called. */
-var search_bar = document.querySelector("#search_bar");
-search_bar.addEventListener("keyup", function (event) {
-    if (event.keyCode == 13) {
-        id_ = search_bar.value;
-        search_bar.value = "";
+const searchbar = document.querySelector("#search_bar");
+searchbar.addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
+        id = searchbar.value;
+        searchbar.value = "";
         getData();
     }
 });
 
-/* Adding an event listener to each element in the left_arrow array. */
-left_arrow.forEach(arrow => {
+leftArrow.forEach(arrow => {
     arrow.addEventListener("click", () => {
-        console.log(id_);
-        if (id_ == 1) {
-            id_ = 999;
+        console.log(id);
+        if (id === 1) {
+            id = 999;
         }
-        id_--;
+        id--;
         getData();
     });
 });
-/* Adding an event listener to each element in the right_arrow array. */
-right_arrow.forEach(arrow => {
+
+rightArrow.forEach(arrow => {
     arrow.addEventListener("click", () => {
-        console.log(id_);
-        id_++;
+        console.log(id);
+        id++;
         getData();
     });
 });
-
-
 
 $(document).ready(function () {
     getData();
 });
 
 function getData() {
-
-    $.getJSON("https://pokeapi.co/api/v2/pokemon/" + id_, function (data) {
+    $.getJSON(`https://pokeapi.co/api/v2/pokemon/${id}`, (data) => {
         console.log(data);
-        poke_name.innerHTML = data.name.toUpperCase();
-        order.innerHTML = "#" + data.id;
-        /* This is checking if the pokemon has a dream world sprite, if it does it will use that, if
-        not it will check if it has a front sprite, if it does it will use that, if not it will use
-        a placeholder image. */
+        pokeName.innerHTML = data.name.toUpperCase();
+        order.innerHTML = `#${data.id}`;
+
         if (data.sprites.other.dream_world.front_default != null) {
-            main_image.src = data.sprites.other.dream_world.front_default;
+            mainImage.src = data.sprites.other.dream_world.front_default;
+        } else if (data.sprites.front_default != null) {
+            mainImage.src = data.sprites.front_default;
+        } else {
+            mainImage.src = "https://imgs.search.brave.com/muGneTUNuFHdN8m6nvgTEdnD0geVMEu_VrxTdvEjtXI/rs:fit:300:300:1/g:ce/aHR0cHM6Ly9vcGVu/Y2xpcGFydC5vcmcv/aW1hZ2UvMzAwcHgv/c3ZnX3RvX3BuZy8x/OTQwNzcvUGxhY2Vo/b2xkZXIucG5n"
+        }
 
-        }
-        else if (data.sprites.front_default != null) {
-            main_image.src = data.sprites.front_default;
-        }
-        else {
-            main_image.src = "https://imgs.search.brave.com/muGneTUNuFHdN8m6nvgTEdnD0geVMEu_VrxTdvEjtXI/rs:fit:300:300:1/g:ce/aHR0cHM6Ly9vcGVu/Y2xpcGFydC5vcmcv/aW1hZ2UvMzAwcHgv/c3ZnX3RvX3BuZy8x/OTQwNzcvUGxhY2Vo/b2xkZXIucG5n"
+        removeChildren(movePills);
+        data.moves.forEach(move => createBadgeElement(movePills, move.move.name, "text-bg-secondary"));
 
-        }
-        /* This is creating a badge for each move that the pokemon has. */
-        removeChildren(move_pills);
-        for (var i = 0; i < data.moves.length; i++) {
-            createBadgeElement(move_pills, data.moves[i].move.name, "text-bg-secondary")
-        }
-        /* This is creating a badge for each type that the pokemon has. */
-        removeChildren(type_pills);
-        for (var i = 0; i < data.types.length; i++) {
-            createBadgeElement(type_pills, data.types[i].type.name, "text-bg-success")
-        }
-        /* This is creating a badge for each ability that the pokemon has. */
-        removeChildren(ability_pills);
-        for (var i = 0; i < data.abilities.length; i++) {
-            createBadgeElement(ability_pills, data.abilities[i].ability.name, "text-bg-warning")
-        }
-        /* This is creating a progress bar for each stat that the pokemon has. */
-        removeChildren(progress_container);
-        for (var i = 0; i < data.stats.length; i++) {
-            createProgressBar(data.stats[i].base_stat, data.stats[i].stat.name)
-        }
-        /* This is checking if the sprite has a front image, if it does it will display it. */
+        removeChildren(typePills);
+        data.types.forEach(type => createBadgeElement(typePills, type.type.name, "text-bg-success"));
+
+        removeChildren(abilityPills);
+        data.abilities.forEach(ability => createBadgeElement(abilityPills, ability.ability.name, "text-bg-warning"));
+
+        removeChildren(progressContainer);
+        data.stats.forEach(stat => createProgressBar(stat.base_stat, stat.stat.name));
+
         removeChildren(sprites);
-        for (var index in data.sprites) {
+        for (let index in data.sprites) {
             if (index.includes("front") && data.sprites[index] != null) {
                 displaySprite(index, data.sprites[index]);
             }
@@ -119,25 +97,27 @@ function removeChildren(parent) {
  * @param name - The name of the progress bar.
  */
 function createProgressBar(valuenow, name) {
-    var p = document.createElement("p");
-    p.innerHTML = name;
-    progress_container.appendChild(p);
-    var progress = document.createElement("div");
+    const p = document.createElement("p");
+    p.textContent = name;
+    progressContainer.appendChild(p);
+  
+    const progress = document.createElement("div");
     progress.classList.add("progress");
     progress.setAttribute("role", "progressbar");
     progress.setAttribute("aria-label", name);
     progress.setAttribute("aria-valuenow", valuenow);
     progress.setAttribute("aria-valuemin", 0);
     progress.setAttribute("aria-valuemax", 100);
-    var progress_bar = document.createElement("div");
-    progress_bar.classList.add("progress-bar");
-    progress_bar.classList.add("progress-bar-striped");
-    progress_bar.classList.add("progress-bar-animated");
-    progress_bar.style.width = valuenow + "%";
-    progress_bar.innerHTML = valuenow;
+  
+    const progress_bar = document.createElement("div");
+    progress_bar.classList.add("progress-bar", "progress-bar-striped", "progress-bar-animated");
+    progress_bar.style.width = `${valuenow}%`;
+    progress_bar.textContent = valuenow;
+  
     progress.appendChild(progress_bar);
-    progress_container.appendChild(progress);
-}
+    progressContainer.appendChild(progress);
+  }
+
 
 /**
  * It creates a span element with the class "badge rounded-pill text-bg-primary" and the color class
@@ -150,11 +130,12 @@ function createBadgeElement(container, badge_text, color) {
     var badge = document.createElement("span");
     badge.classList.add("badge");
     badge.classList.add("rounded-pill");
-    badge.classList.add("text-bg-primary");
+    badge.classList.add("text-white");
     badge.classList.add(color);
     badge.innerHTML = badge_text;
     container.appendChild(badge);
 }
+
 
 /**
  * It creates an image element, sets its class, sets its source, sets its alt text, and then appends it
@@ -163,9 +144,8 @@ function createBadgeElement(container, badge_text, color) {
  * @param spriteURL - The URL of the sprite image.
  */
 function displaySprite(name, spriteURL) {
-    var img = document.createElement("img");
-    img.classList.add("img-fluid");
-    img.classList.add("sprite-image");
+    const img = document.createElement("img");
+    img.classList.add("img-fluid", "sprite-image");
     img.src = spriteURL;
     img.alt = name;
     sprites.appendChild(img);

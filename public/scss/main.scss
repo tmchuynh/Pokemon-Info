@@ -1,72 +1,122 @@
-:root {
-    --grey: #4C5B5C;
-    --black: #18191b;
-}
+// Define variables
+$grey: #4C5B5C;
+$black: #18191b;
+$tablet-breakpoint: 768px;
+$desktop-breakpoint: 1024px;
 
+// Define styles for mobile
 main {
-    padding: 1.5rem;
-    background-color: var(--grey);
-    color: white;
-}
-
-p {
-    padding: 0;
-    margin: 0;
-}
-
-img {
-    object-fit: contain;
-}
-
-.bi {
-    color: var(--grey);
+  padding: 1rem;
+  background-color: $grey;
+  color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 #order {
-    position: absolute;
-    top: 5.8rem;
-    left: 48.5%
+  position: absolute;
+  top: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-
 .card {
-    min-height: 25rem;
-    margin: 0.5rem;
-    height: max-content;
-    color: var(--black);
-    .progress {
-        margin-bottom: .5rem;
-        width: 100%;
-    }
+  min-height: 31rem;
+  margin: 0.5rem;
+  height: max-content;
+  color: $black;
+
+  .progress {
+    margin-bottom: .5rem;
+    width: 100%;
+  }
 }
 
 .top {
-    height: 26rem;
+  height: 21rem;
 }
-
 
 .type-pills,
 .ability-pills,
 .move-pills {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 0;
-    padding: 0;
-    .badge {
-        margin: 2px;
-    }
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0;
+  padding: 0;
+
+  .badge {
+    margin: 2px;
+  }
 }
 
 .main-image {
-    max-width: 19rem;
-    max-height: 19rem;
+  max-width: 10rem;
+  max-height: 15rem;
 }
 
 .sprites {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  .sprite-image {
+    width: 35%;
+  }
+}
+
+// Define styles for tablet
+@media only screen and (min-width: $tablet-breakpoint) {
+  main {
+    padding: 2rem;
+  }
+
+  .card {
+    min-height: 32rem;
+    height: auto;
+  }
+
+  .top {
+    height: 26rem;
+  }
+
+  .main-image {
+    max-width: 19rem;
+    max-height: 19rem;
+  }
+
+  .sprites {
     .sprite-image {
-        width: 35%;
+      width: 30%;
     }
+  }
+}
+
+// Define styles for desktop
+@media only screen and (min-width: $desktop-breakpoint) {
+  main {
+    padding: 3rem;
+  }
+
+  #order {
+    top: 5.8rem;
+  }
+
+  .card {
+    min-height: 30rem;
+  }
+
+  .top {
+    height: 31rem;
+  }
+
+  .main-image {
+    max-width: 23rem;
+    max-height: 23rem;
+  }
+
+  .sprites {
+    .sprite-image {
+      width: 25%;
+    }
+  }
 }
